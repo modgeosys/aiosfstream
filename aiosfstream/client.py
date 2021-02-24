@@ -288,6 +288,7 @@ class SalesforceStreamingClient(Client):
     :obj:`Authenticator <aiosfstream.auth.AuthenticatorBase>`
     """
     def __init__(self, *,  # pylint: disable=too-many-locals
+                 instance_url: str,
                  consumer_key: str, consumer_secret: str,
                  username: str, password: str,
                  replay: ReplayParameter = ReplayOption.NEW_EVENTS,
@@ -300,6 +301,7 @@ class SalesforceStreamingClient(Client):
                  json_loads: JsonLoader = json.loads,
                  loop: Optional[asyncio.AbstractEventLoop] = None):
         """
+        :param instance_url: Salesforce instance url
         :param consumer_key: Consumer key from the Salesforce connected \
         app definition
         :param consumer_secret: Consumer secret from the Salesforce \
@@ -337,6 +339,7 @@ class SalesforceStreamingClient(Client):
                      event loop.
         """
         authenticator = PasswordAuthenticator(
+            instance_url=instance_url,
             consumer_key=consumer_key,
             consumer_secret=consumer_secret,
             username=username,

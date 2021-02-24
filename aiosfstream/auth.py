@@ -123,11 +123,13 @@ class AuthenticatorBase(AuthExtension):
 
 class PasswordAuthenticator(AuthenticatorBase):
     """Authenticator for using the OAuth 2.0 Username-Password Flow"""
-    def __init__(self, consumer_key: str, consumer_secret: str,
+    def __init__(self, instance_url: str,
+                 consumer_key: str, consumer_secret: str,
                  username: str, password: str, sandbox: bool = False,
                  json_dumps: JsonDumper = json.dumps,
                  json_loads: JsonLoader = json.loads) -> None:
         """
+        :param instance_url: Salesforce instance url
         :param consumer_key: Consumer key from the Salesforce connected \
         app definition
         :param consumer_secret: Consumer secret from the Salesforce \
@@ -144,6 +146,8 @@ class PasswordAuthenticator(AuthenticatorBase):
         super().__init__(sandbox=sandbox,
                          json_dumps=json_dumps,
                          json_loads=json_loads)
+        #: Salesforce instance URL
+        self.instance_url = instance_url
         #: OAuth2 client id
         self.client_id = consumer_key
         #: OAuth2 client secret
